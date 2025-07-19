@@ -25,4 +25,9 @@ public class AvailableSlotServiceImp implements AvailableSlotService {
         );
     }
 
+    @Override
+    public AvailableSlotEntity get(long id) {
+        return repository.getReferenceById(id);
+    }
+
 }

@@ -47,4 +47,9 @@ public class UserServiceImp implements UserService {
         userRepository.saveAll(users);
     }
 
+    @Override
+    public UserEntity get(long id) {
+        return userRepository.getReferenceById(id);
+    }
+
 }

@@ -12,13 +12,13 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(
         name = "available_slots",
         //for better performance for finding available slot
         indexes = {@Index(name = "as_start_time_idx", columnList = "start_time")}
 )
-@NoArgsConstructor
-@AllArgsConstructor
 public class AvailableSlotEntity {
 
     @Id
