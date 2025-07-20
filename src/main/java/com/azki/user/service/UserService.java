@@ -8,11 +8,15 @@ import java.util.Optional;
 
 public interface UserService {
 
+    UserEntity get(long id);
+
+    boolean existsByUsername(String username);
+
+    boolean existsByEmail(String email);
+
     void createUser(CreateUserRequest request);
 
     void createUsers(Collection<CreateUserRequest> request);
-
-    UserEntity get(long id);
 
     Optional<UserEntity> findById(Long id);
 

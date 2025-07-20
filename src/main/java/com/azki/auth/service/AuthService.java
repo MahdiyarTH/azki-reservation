@@ -2,17 +2,18 @@ package com.azki.auth.service;
 
 import com.azki.auth.model.dto.LoginRequest;
 import com.azki.auth.model.dto.LoginResponse;
+import com.azki.auth.model.dto.RegisterRequest;
+import com.azki.common.exception.mode.ApiException;
 import com.azki.common.util.JwtUtil;
 import com.azki.user.entity.UserEntity;
+import com.azki.user.model.crud.CreateUserRequest;
 import com.azki.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +33,29 @@ public class AuthService {
                 .token(jwtToken)
                 .expiresAt(jwtUtil.getExpiration(jwtToken))
                 .build();
+    }
+
+    @Transactional
+    public void register(RegisterRequest registerRequest) {
+        if (userService.existsByEmail(registerRequest.getEmail()))
+            throw ApiException.builder()
+                    .message("Email already in use!")
+                    .httpStatus(HttpStatus.FORBIDDEN)
+                    .build();
+
+        if (userService.existsByUsername(registerRequest.getUsername()))
+            throw ApiException.builder()
+                    .message("Username already in use!")
+                    .httpStatus(HttpStatus.FORBIDDEN)
+                    .build();
+
+        userService.createUser(
+                CreateUserRequest.builder()
+                        .email(registerRequest.getEmail())
+                        .username(registerRequest.getUsername())
+                        .password(registerRequest.getPassword())
+                        .build()
+        );
     }
 
 }
