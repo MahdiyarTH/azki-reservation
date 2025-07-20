@@ -9,6 +9,8 @@ public interface AvailableSlotService {
 
     Optional<Long> reserveNextAvailableSlot();
 
+    void undoReservation(long availableSlotId);
+
     void createAvailableSlot(CreateAvailableSlotRequest createAvailableSlotRequest);
 
     AvailableSlotEntity get(long id);

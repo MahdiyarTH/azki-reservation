@@ -26,7 +26,7 @@ public class AzkiReservationApplication {
                                                AvailableSlotService availableSlotService) {
         return args -> {
 //            insertUsers(userService);
-            insertAvailableSlots(availableSlotService);
+//            insertAvailableSlots(availableSlotService);
         };
     }
 

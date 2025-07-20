@@ -6,9 +6,7 @@ import com.azki.reservation.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,6 +19,14 @@ public class ReservationController {
     @PreAuthorize("isFullyAuthenticated()")
     public HttpResponse<ReservationResponse> reserve(@AuthenticationPrincipal Long userId) {
         return HttpResponse.success(reservationService.reserveBestSlot(userId));
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("isFullyAuthenticated()")
+    public HttpResponse<Void> deleteReservation(@PathVariable("id") Long id,
+                                                @AuthenticationPrincipal Long userId) {
+        reservationService.deleteReservation(id, userId);
+        return HttpResponse.success();
     }
 
 }

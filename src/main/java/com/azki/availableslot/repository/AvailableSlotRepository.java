@@ -4,6 +4,7 @@ import com.azki.availableslot.entity.AvailableSlotEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -28,5 +29,9 @@ public interface AvailableSlotRepository extends JpaRepository<AvailableSlotEnti
             RETURNING slot.id;
             """, nativeQuery = true)
     Optional<Long> reserveNextAvailableSlot();
+
+    @Modifying
+    @Query("update AvailableSlotEntity available set available.reserved = false where available.id = :id")
+    void undoReservation(@Param("id") long id);
 
 }

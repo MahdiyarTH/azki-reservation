@@ -6,4 +6,6 @@ public interface ReservationService {
 
     ReservationResponse reserveBestSlot(long userId);
 
+    void deleteReservation(long reservationId, long userId);
+
 }

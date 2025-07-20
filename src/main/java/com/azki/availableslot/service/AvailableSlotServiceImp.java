@@ -22,24 +22,30 @@ public class AvailableSlotServiceImp implements AvailableSlotService {
     @Transactional
     public Optional<Long> reserveNextAvailableSlot() {
         String sql = """
-            WITH slot AS (
-                SELECT id
-                FROM available_slots
-                WHERE is_reserved = FALSE
-                AND start_time >= now()
-                ORDER BY start_time
-                LIMIT 1
-                FOR UPDATE SKIP LOCKED
-            )
-            UPDATE available_slots
-            SET is_reserved = TRUE
-            WHERE id IN (SELECT id FROM slot)
-            RETURNING id;
-        """;
+                    WITH slot AS (
+                        SELECT id
+                        FROM available_slots
+                        WHERE is_reserved = FALSE
+                        AND start_time >= now()
+                        ORDER BY start_time
+                        LIMIT 1
+                        FOR UPDATE SKIP LOCKED
+                    )
+                    UPDATE available_slots
+                    SET is_reserved = TRUE
+                    WHERE id IN (SELECT id FROM slot)
+                    RETURNING id;
+                """;
 
         List<Long> result = jdbcTemplate.query(sql, (rs, rowNum) -> rs.getLong("id"));
 
         return result.stream().findFirst();
+    }
+
+    @Override
+    @Transactional
+    public void undoReservation(long availableSlotId) {
+        repository.undoReservation(availableSlotId);
     }
 
     @Override
