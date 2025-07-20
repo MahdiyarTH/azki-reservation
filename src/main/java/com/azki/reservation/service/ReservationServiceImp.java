@@ -78,7 +78,7 @@ public class ReservationServiceImp implements ReservationService {
                         () -> ApiException
                                 .builder()
                                 .httpStatus(HttpStatus.NOT_FOUND)
-                                .message("No reservation by id " + reservationId + " found!")
+                                .message("No reservation found!")
                                 .build()
                 );
 
