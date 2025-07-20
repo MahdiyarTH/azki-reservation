@@ -1,7 +1,9 @@
 package com.azki.reservation.service;
 
+import com.azki.reservation.model.crud.ReservationResponse;
+
 public interface ReservationService {
 
-    void save(long userId, long slotId);
+    ReservationResponse reserveBestSlot(long userId);
 
 }

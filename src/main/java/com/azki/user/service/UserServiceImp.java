@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -50,6 +51,16 @@ public class UserServiceImp implements UserService {
     @Override
     public UserEntity get(long id) {
         return userRepository.getReferenceById(id);
+    }
+
+    @Override
+    public Optional<UserEntity> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public Optional<UserEntity> findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
 }

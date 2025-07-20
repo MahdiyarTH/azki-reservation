@@ -26,7 +26,7 @@ public class AzkiReservationApplication {
                                                AvailableSlotService availableSlotService) {
         return args -> {
 //            insertUsers(userService);
-//            insertAvailableSlots(availableSlotService);
+            insertAvailableSlots(availableSlotService);
         };
     }
 
@@ -47,7 +47,7 @@ public class AzkiReservationApplication {
 
     private void insertAvailableSlots(AvailableSlotService availableSlotService) {
         Calendar calendar = Calendar.getInstance();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5_000_000; i++) {
             Instant startInstant = calendar.toInstant();
 
             calendar.add(Calendar.HOUR_OF_DAY, 1);
@@ -70,6 +70,8 @@ public class AzkiReservationApplication {
                             .build()
             );
         }
+
+        System.out.println("DONE");
     }
 
 }

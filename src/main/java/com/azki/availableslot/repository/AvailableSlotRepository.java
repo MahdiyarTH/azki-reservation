@@ -25,8 +25,8 @@ public interface AvailableSlotRepository extends JpaRepository<AvailableSlotEnti
             UPDATE available_slots
             SET is_reserved = TRUE
             WHERE id IN (SELECT id FROM slot)
-            RETURNING *;
+            RETURNING slot.id;
             """, nativeQuery = true)
-    Optional<AvailableSlotEntity> reserveNextAvailableSlot();
+    Optional<Long> reserveNextAvailableSlot();
 
 }
