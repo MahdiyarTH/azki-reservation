@@ -4,6 +4,7 @@ import com.azki.common.model.HttpResponse;
 import com.azki.reservation.model.crud.ReservationResponse;
 import com.azki.reservation.service.ReservationService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -36,8 +37,9 @@ public class ReservationController {
             summary = "Cancel reservation",
             description = "Cancel the reservation specified by passed id"
     )
-    public HttpResponse<Void> deleteReservation(@PathVariable("id") Long id,
-                                                @AuthenticationPrincipal Long userId) {
+    public HttpResponse<Void> deleteReservation(
+            @AuthenticationPrincipal Long userId,
+            @Parameter(required = true, description = "Reservation id that got from POST /reservations API") @PathVariable("id") Long id) {
         reservationService.deleteReservation(id, userId);
         return HttpResponse.success();
     }
