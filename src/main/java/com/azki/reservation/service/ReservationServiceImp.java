@@ -30,7 +30,7 @@ public class ReservationServiceImp implements ReservationService {
     @Override
     @Transactional
     public ReservationResponse reserveBestSlot(long userId) {
-        log.info("Trying to get best slot for user {}", userId);
+        log.debug("Trying to get best slot for user {}", userId);
 
         Long availableSlotId = availableSlotService.reserveNextAvailableSlot()
                 .orElseThrow(
@@ -47,7 +47,7 @@ public class ReservationServiceImp implements ReservationService {
 
         AvailableSlotEntity availableSlot = availableSlotService.get(availableSlotId);
 
-        log.info("Saving a reservation for user {} by slot id {}", userId, availableSlotId);
+        log.debug("Saving a reservation for user {} by slot id {}", userId, availableSlotId);
         final ReservationEntity reservation = reservationRepository.save(
                 ReservationEntity.builder()
                         .slot(availableSlot)
@@ -65,6 +65,7 @@ public class ReservationServiceImp implements ReservationService {
     @Override
     @Transactional
     public void deleteReservation(long reservationId, long userId) {
+        log.debug("Trying to delete reservation {} for user {}", reservationId, userId);
         ReservationEntity reservation = reservationRepository
                 .findOne(
                         Example.of(
@@ -88,7 +89,10 @@ public class ReservationServiceImp implements ReservationService {
                     .message("Reservation already canceled!")
                     .build();
 
+        log.debug("Undoing available slot {} for user {} to free", reservation.getSlotId(), userId);
         availableSlotService.undoReservation(reservation.getSlotId());
+
+        log.debug("Deleting reservation {} for user {}", reservationId, userId);
         reservationRepository.cancelReservation(LocalDateTime.now(), reservationId);
     }
 

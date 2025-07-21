@@ -1,13 +1,12 @@
 package com.azki.auth.model.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @Getter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegisterRequest {
@@ -18,6 +17,7 @@ public class RegisterRequest {
     @NotBlank
     private String password;
 
+    @Email(message = "E-Mail format is not correct!")
     @NotBlank
     private String email;
 

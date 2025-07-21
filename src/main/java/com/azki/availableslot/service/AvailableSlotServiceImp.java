@@ -4,6 +4,7 @@ import com.azki.availableslot.entity.AvailableSlotEntity;
 import com.azki.availableslot.model.crud.CreateAvailableSlotRequest;
 import com.azki.availableslot.repository.AvailableSlotRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AvailableSlotServiceImp implements AvailableSlotService {
@@ -21,6 +23,7 @@ public class AvailableSlotServiceImp implements AvailableSlotService {
     @Override
     @Transactional
     public Optional<Long> reserveNextAvailableSlot() {
+        log.debug("Reserving next available slot");
         /*
         Here we used select for update, to prevent locking rows for other transactions.
         In this query, when a row is selected, database put a lock on the row, when a new

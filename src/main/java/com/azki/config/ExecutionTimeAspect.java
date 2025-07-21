@@ -18,7 +18,7 @@ public class ExecutionTimeAspect {
         long duration = System.currentTimeMillis() - start;
 
         if (duration < 50) {
-            log.info("Method {} executed in {} ms", joinPoint.getSignature(), duration);
+            log.debug("Method {} executed in {} ms", joinPoint.getSignature(), duration);
         } else {
             log.warn("Method {} executed in {} ms", joinPoint.getSignature(), duration);
         }

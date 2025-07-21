@@ -9,12 +9,14 @@ import com.azki.user.entity.UserEntity;
 import com.azki.user.model.crud.CreateUserRequest;
 import com.azki.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -37,6 +39,8 @@ public class AuthService {
 
     @Transactional
     public void register(RegisterRequest registerRequest) {
+        log.debug("Register request: {}", registerRequest);
+
         if (userService.existsByEmail(registerRequest.getEmail()))
             throw ApiException.builder()
                     .message("Email already in use!")

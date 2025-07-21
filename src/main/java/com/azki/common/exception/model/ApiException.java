@@ -14,4 +14,7 @@ public class ApiException extends RuntimeException {
     @Builder.Default
     private final String message = "Internal server exception";
 
+    @Builder.Default
+    private final Object extraParams = null;
+
 }
