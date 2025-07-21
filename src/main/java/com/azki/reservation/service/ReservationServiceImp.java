@@ -3,7 +3,7 @@ package com.azki.reservation.service;
 import com.azki.availableslot.entity.AvailableSlotEntity;
 import com.azki.availableslot.model.AvailableSlotMapper;
 import com.azki.availableslot.service.AvailableSlotService;
-import com.azki.common.exception.mode.ApiException;
+import com.azki.common.exception.model.ApiException;
 import com.azki.reservation.entity.ReservationEntity;
 import com.azki.reservation.model.crud.ReservationResponse;
 import com.azki.reservation.repository.ReservationRepository;

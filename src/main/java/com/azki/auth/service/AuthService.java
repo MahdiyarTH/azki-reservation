@@ -3,7 +3,7 @@ package com.azki.auth.service;
 import com.azki.auth.model.dto.LoginRequest;
 import com.azki.auth.model.dto.LoginResponse;
 import com.azki.auth.model.dto.RegisterRequest;
-import com.azki.common.exception.mode.ApiException;
+import com.azki.common.exception.model.ApiException;
 import com.azki.common.util.JwtUtil;
 import com.azki.user.entity.UserEntity;
 import com.azki.user.model.crud.CreateUserRequest;

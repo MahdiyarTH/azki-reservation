@@ -1,6 +1,6 @@
 package com.azki.common.exception;
 
-import com.azki.common.exception.mode.ApiException;
+import com.azki.common.exception.model.ApiException;
 import com.azki.common.model.HttpResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

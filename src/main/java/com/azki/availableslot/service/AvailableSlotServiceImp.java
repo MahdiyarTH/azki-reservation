@@ -21,6 +21,17 @@ public class AvailableSlotServiceImp implements AvailableSlotService {
     @Override
     @Transactional
     public Optional<Long> reserveNextAvailableSlot() {
+        /*
+        Here we used select for update, to prevent locking rows for other transactions.
+        In this query, when a row is selected, database put a lock on the row, when a new
+        transaction execute same query, it will NOT get same row as first transaction, because
+        it is marked as LOCKED, also it will not wait for the first transaction to release the
+        lock, so database return the next first not marked as lock row. In this way execution
+        time reduce dramatically.
+        Also by putting this query in repository layer, we will not be able to get the selected row
+        data as return, because @Modifying methods must only return void or Integer/int that indicates
+        the number of affected rows.
+         */
         String sql = """
                     WITH slot AS (
                         SELECT id
