@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/reservations")
+@RequestMapping("/v1/reservations")
 @SecurityRequirement(name = "bearerAuth")
 @Tag(name = "Reservation", description = "Reservation related APIs")
 public class ReservationController {
