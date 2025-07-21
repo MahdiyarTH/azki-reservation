@@ -4,6 +4,7 @@ import com.azki.availableslot.model.crud.CreateAvailableSlotRequest;
 import com.azki.availableslot.service.AvailableSlotService;
 import com.azki.user.model.crud.CreateUserRequest;
 import com.azki.user.service.UserService;
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +18,7 @@ import java.util.Calendar;
 
 @EnableCaching
 @SpringBootApplication
+@EnableEncryptableProperties
 public class AzkiReservationApplication {
 
     public static void main(String[] args) {
